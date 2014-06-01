@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <title>Whack A Mole Game</title>
+</head>
+<body>
+    <div id="welcome">
+        <div class="container">
+            <div class="page-header">
+                <h1>Welcome to Whack A Mole Game</h1>
+            </div>
+            <p class="lead">
+                A lot of moles will appear randomly, your objective is to hit at least 30 of them within 20 seconds.
+                Be sure to hit them before they start to hide...
+            </p>
+
+            <p>
+                <i class="icon-user"></i> Guillermo Mansilla - Student ID 300714073
+                <br>
+                <i class="icon-envelope"></i> mansillag AT gmail DOT com
+                <br>
+                <i class="icon-book"></i> Source code is available <a href="https://github.com/gmansilla/whack-a-mole/commits/master">here</a>
+            </p>
+            <p>
+                <button id ="showBoard" class="btn btn-success" data-dismiss="modal" aria-hidden="true">Take me to the board!</button>
+            </p>
+        </div>
+        <div id="push2">
+
+        </div>
+    </div>
+    <div id="wrap" style="display: none">
+        <div class="container">
+            <div class="page-header">
+                <h1>Whack A Mole Game</h1>
+            </div>
+            <div id="game">
+                <div class="top-section">
+                    <div id="hole1" class="hole">
+                        <div id="hole-mole1" class="hole-mole">
+                            <div id="mole1" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole2" class="hole">
+                        <div id="hole-mole2" class="hole-mole">
+                            <div id="mole2" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole3" class="hole">
+                        <div id="hole-mole3" class="hole-mole">
+                            <div id="mole3" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+                </div>
+
+                <div class="middle-section">
+                    <div id="hole4" class="hole">
+                        <div id="hole-mole4" class="hole-mole">
+                            <div id="mole4" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole5" class="hole">
+                        <div id="hole-mole5" class="hole-mole">
+                            <div id="mole5" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole6" class="hole">
+                        <div id="hole-mole6" class="hole-mole">
+                            <div id="mole6" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole7" class="hole">
+                        <div id="hole-mole7" class="hole-mole">
+                            <div id="mole7" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+                </div>
+
+                <div class = "bottom-section">
+                    <div id="hole8" class="hole">
+                        <div id="hole-mole8" class="hole-mole">
+                            <div id="mole8" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole9" class="hole">
+                        <div id="hole-mole9" class="hole-mole">
+                            <div id="mole9" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+
+                    <div id="hole10" class="hole">
+                        <div id="hole-mole10" class="hole-mole">
+                            <div id="mole10" class="mole" style="display: none;"></div>
+                        </div>
+                        <div class="hole-image"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="controls">
+                <p>
+                    <button class="startButton btn btn-large btn-success" type="button">Start!</button>
+                </p>
+            </div>
+            <div id="score-board">
+                <table class="table center-table">
+                    <tr class="warning">
+                        <td><span class="spanCounter">Time left</span></td>
+                        <td id="counterTime" class="counter"><input type="hidden" name="counter-value" value="0" /></td>
+                    </tr>
+                    <tr class="success">
+                        <td><span class="spanCounter">Hits</span></td>
+                        <td id="counterHits" class="counter"><input type="hidden" name="counter-value" value="0" /></td>
+                    </tr>
+                </table>
+
+            </div>
+            <div>
+                <audio id="sound-hit">
+                    <source src="assets/sounds/hit.mp3" />
+                    <source src="assets/sounds/hit.wav" />
+                </audio>
+                <audio id="sound-background">
+                    <source src="assets/sounds/background.mp3" />
+                    <source src="assets/sounds/background.wav" />
+                </audio>
+                <audio id="sound-lose">
+                    <source src="assets/sounds/lose.mp3" />
+                    <source src="assets/sounds/lose.wav" />
+                </audio>
+                <audio id="sound-win">
+                    <source src="assets/sounds/win.mp3" />
+                    <source src="assets/sounds/win.wav" />
+                </audio>
+            </div>
+        </div>
+        <div id="push">
+
+        </div>
+    </div>
+
+    <div id="modalWinner" class="modal hide fade" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="myModalLabel" class="text-success">You Won!</h3>
+        </div>
+        <div class="modal-body">
+            <p class="lead text-info">As a reward, here's a happy potato</p>
+            <p class="text-info text-center stats"></p>
+            <img src="assets/images/potato.gif" height="400px">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    <div id="modalLooser" class="modal hide fade" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 class="text-error">You Lose! =( </h3>
+        </div>
+        <div class="modal-body-lose">
+            <br />
+            <br />
+            <p class="lead text-info text-center">Come on, you can do it!</p>
+            <p class="text-info text-center stats"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <p class="muted credit">Developed by <a href="https://github.com/gmansilla/whack-a-mole">Guillermo Mansilla</a>
+                for <a href="http://http://www.centennialcollege.ca/">Centennial College</a>.</p>
+        </div>
+    </div>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/jquery.timer.js"></script>
+    <script src="assets/js/jquery.flipCounter.1.2.pack.js"></script>
+    <script src="assets/js/mole.js"></script>
+</body>
+</html>
