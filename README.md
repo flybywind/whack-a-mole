@@ -4,6 +4,7 @@ whack-a-mole
 
 
 说一下学习成果吧。
+
 1.  复习了jqeury的语法。$()里面可以是一个dom对象，也可以是selector，不管是什么，只要由$()修饰的东西，才能使用jquery的函数
 
 2.  学习了cursor属性：可以修改鼠标形状。$("#game").css("cursor", "url(assets/images/hammer.png),auto");
