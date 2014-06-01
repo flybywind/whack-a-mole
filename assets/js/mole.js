@@ -1,10 +1,11 @@
 var game = {
-	time: 20,
+	time: 30,
     objective: 30,
 	startTime: 0,
     currentTime: 0,
     score: 0,
-    molesShown: 0
+    molesShown: 0,
+	work_ratio: 0.2
 };
 var creationTime = {
     mole1: 0,
@@ -18,6 +19,8 @@ var creationTime = {
     mole9: 0,
     mole10: 0
 }
+var work = ["洗碗", "拖地", "捶背", "揉腿", "暖被", "下跪", "擦桌", "做饭", "喂奶", "买菜", "洗衣"];
+var hit_work = {}
 var newTimer;
 $(document).ready(function() {
     $("#score-board").hide();
@@ -29,6 +32,9 @@ $(document).ready(function() {
 
     $(".mole").click(function(){
         game.score++;
+		var w = $(this).attr('value');
+		if (w)
+			hit_work[w] = 1;
         $("#sound-hit")[0].play();
         hideMole($(this), 100);
         $("#counterHits").flipCounter("setNumber", game.score);
@@ -81,8 +87,19 @@ function handleMoles() {
 function showMole(mole, speed) {
     var now = new Date();
     var currentTime = now.getTime();
+	// prevent a mole appear twice before it dispear
     if (creationTime[$(mole).attr('id')] == 0) {
         $(mole).show("slide", { direction: "down" }, speed);
+		var index = Math.floor((Math.random() * 11/game.work_ratio));
+		if (index < 11)
+		{
+			var w = work[index];
+			$(mole).append("<p class=\"test-info text-center\">" + 
+								"<font color=\"#33CCFF\" face=\"STKaiti\" size=5>" + w + 
+								"</font>" + 
+							"</p>");
+			$(mole).attr('value', w);
+		}
         creationTime[$(mole).attr('id')] = currentTime;
         game.molesShown++;
     }
@@ -95,6 +112,7 @@ function showMole(mole, speed) {
  */
 function hideMole(mole, speed) {
 	$(mole).hide("slide", { direction: "down" }, speed);
+	$(mole).empty();
     creationTime[$(mole).attr('id')] = 0;
 }
 
@@ -115,12 +133,22 @@ function resetMoles(useWait) {
                 }
             } else { //reset game
                 hideMole(this, 100);
+				var work_str = "";
+				var work_num = 0;
+				for (v in hit_work) {
+					work_str += v + ",";
+					++ work_num;
+				}
+				var len = work_str.length;
+				work_str = work_str.substr(0, len-1);
                 $("#controls").show("slide", {direction: "right"}, 1000);
-                $("p.stats").text(game.molesShown + " moles were shown, you hit on " + game.score);
-                if (game.score >= game.objective) { //you win
+                if (game.score >= game.objective && work_num > 3) { //you win
+					$("p.stats").html("老婆大人一共教育了" + game.score + "下，我知道错了<br/>" +
+									  "伺候云儿是我的福气！根据您的指示，我下一步的工作是" + work_str );
                     $('#modalWinner').modal('show');
                     $("#sound-win")[0].play();
                 } else {
+					$("p.stats").text("我就知道云儿宽宏大量，出去玩咯");
                     $('#modalLooser').modal('show');
                     $("#sound-lose")[0].play();
                 }
@@ -136,6 +164,7 @@ function resetMoles(useWait) {
 function initializeBoard() {
     $("#score-board").show("slide", { direction: "right" }, 800);
     $("#controls").hide("slide", {direction: "left"}, 800);
+	hit_work = {}
     var start = new Date();
     game.startTime = start.getTime();
     game.score = 0;
