@@ -29,8 +29,9 @@ $(document).ready(function() {
         $("#welcome").hide("slide", { direction: "down" }, 100);
         $("#wrap").show();
     });
-
+	$("#game").css("cursor", "url(assets/images/hammer.png),auto");
     $(".mole").click(function(){
+		$(this).css("cursor", "url(assets/images/hammer2.png),auto");
         game.score++;
 		var w = $(this).attr('value');
 		if (w)
@@ -87,6 +88,7 @@ function handleMoles() {
 function showMole(mole, speed) {
     var now = new Date();
     var currentTime = now.getTime();
+	$(mole).css("cursor", "url(assets/images/hammer.png),auto");
 	// prevent a mole appear twice before it dispear
     if (creationTime[$(mole).attr('id')] == 0) {
         $(mole).show("slide", { direction: "down" }, speed);
@@ -142,9 +144,9 @@ function resetMoles(useWait) {
 				var len = work_str.length;
 				work_str = work_str.substr(0, len-1);
                 $("#controls").show("slide", {direction: "right"}, 1000);
-                if (game.score >= game.objective && work_num > 3) { //you win
+                if (game.score >= 0 /*game.objective && work_num > 3*/) { //you win
 					$("p.stats").html("老婆大人一共教育了" + game.score + "下，我知道错了<br/>" +
-									  "伺候云儿是我的福气！根据您的指示，我下一步的工作是" + work_str );
+									  "伺候云儿是我的福气！<br/>根据您的指示，我下一步的工作是" + work_str );
                     $('#modalWinner').modal('show');
                     $("#sound-win")[0].play();
                 } else {
